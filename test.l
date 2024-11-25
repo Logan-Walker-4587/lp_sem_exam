@@ -3,16 +3,37 @@
    int v = 0;          // Words without vowels
    int result = 0;     // Words without 'a' and length 5
    int digit = 0;      // 4-digit numbers
+   int length = 0;     // Length of current word
 %}
 
 %%
 
-[b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z] { result++; }   
-[a-zA-Z]*[^aeiouAEIOU\s][a-zA-Z]* { v++; }          
-[0-9][0-9][0-9][0-9] { digit++; }  
-[ \t] {}  
-\n { return 0; } 
-. {}   
+[a-zA-Z]+ {
+    length = strlen(yytext);
+    
+    // Count words without vowels
+    int isVowelFree = 1;  // Flag to check if word has vowels
+    for (int i = 0; yytext[i] != '\0'; i++) {
+        if (strchr("aeiouAEIOU", yytext[i])) {
+            isVowelFree = 0;  // Word has a vowel
+            break;
+        }
+    }
+
+    if (isVowelFree) {
+        v++;
+    }
+
+    // Check for words without 'a' and length 5
+    if (length == 5 && !strchr(yytext, 'a') && !strchr(yytext, 'A')) {
+        result++;
+    }
+}
+
+[0-9]{4} { digit++; }  // 4-digit numbers
+[ \t] {}  // Ignore spaces
+\n { return 0; }  // End on newline
+. {}   // Ignore other characters
 
 %%
 

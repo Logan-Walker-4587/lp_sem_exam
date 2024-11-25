@@ -9,7 +9,7 @@
 
 %%
 
-[b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z]{5} { c++; } 
+
 [b-zB-Z][b-zB-Z][b-zB-Z][b-zB-Z][b-zB-Z] { result++; }
 [0-9][0-9][0-9][0-9] { digit++; }
 [ \t] {}
