@@ -6,7 +6,7 @@
 %}
 
 %token ID OP 
-%left OP
+%left OP     
 
 %%
 
